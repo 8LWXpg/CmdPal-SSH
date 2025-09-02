@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "SSH (Package)": {
+      "commandName": "MsixPackage",
+      "doNotLaunchApp": true
+    },
+    "SSH (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
