@@ -14,7 +14,7 @@
         <EnableMsixTooling>true</EnableMsixTooling>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
-        <Version>0.0.1</Version>
+        <Version>0.0.2</Version>
 
         <Authors>8LWXpg</Authors>
         <PackageReadmeFile>README.md</PackageReadmeFile>
