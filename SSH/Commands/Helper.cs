@@ -27,7 +27,7 @@ public static class Helper
 			process.Start();
 			return true;
 		}
-		catch (Win32Exception ex)
+		catch (Win32Exception)
 		{
 			// Log.Exception("Unable to open " + path + ": " + ex.Message, ex, MethodBase.GetCurrentMethod().DeclaringType, "OpenInShell", "D:\\a\\_work\\1\\s\\src\\modules\\launcher\\Wox.Infrastructure\\Helper.cs", 192);
 			return false;

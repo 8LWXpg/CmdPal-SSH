@@ -5,8 +5,8 @@ namespace SSH.Classes.Config;
 
 public partial class Lexer
 {
-	public List<KeyValuePair<string, string>> Nodes;
-	public HashSet<string> Includes;
+	public List<KeyValuePair<string, string>> Nodes { get; }
+	public HashSet<string> Includes { get; }
 
 	/// <summary>
 	/// Convert ssh config file to series of <c>key</c>, <c>value</c> pair

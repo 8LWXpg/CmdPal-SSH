@@ -11,7 +11,7 @@
   <Identity
     Name="SSH"
     Publisher="CN=8LWXpg"
-    Version="0.1.0.0" />
+    Version="0.0.1.0" />
   <!-- When you're ready to publish your extension, you'll need to change the
        Publisher= to match your own identity -->
 
@@ -35,8 +35,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="SSH"
-        Description="SSH"
+        DisplayName="SSH for Command Palette"
+        Description="SSH for Command Palette"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">

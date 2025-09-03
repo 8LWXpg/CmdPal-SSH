@@ -2,6 +2,7 @@ using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using SSH.Classes;
 using SSH.Commands;
+using SSH.Properties;
 
 namespace SSH.Pages;
 
@@ -11,9 +12,9 @@ internal sealed partial class SshPage : ListPage
 
 	public SshPage(SettingsManager settingsManager)
 	{
-		Icon = IconHelpers.FromRelativePath("Assets\\StoreLogo.png");
-		Title = "SSH";
-		Name = "Open";
+		Icon = IconHelpers.FromRelativePaths("Assets/SSH.light.svg", "Assets/SSH.dark.svg");
+		Title = Resources.plugin_name;
+		Name = Resources.plugin_description;
 		_settingsManager = settingsManager;
 	}
 
@@ -27,7 +28,7 @@ internal sealed partial class SshPage : ListPage
 				_settingsManager.TerminalType,
 				_settingsManager.SuppressTitleChange)
 		)
-		{ Title = host.Host, Subtitle = $"{host.User}@{host.HostName}" });
+		{ Title = host.Host, Subtitle = $"{host.User}@{host.HostName}", Icon = Icon });
 
 		return [.. results];
 	}
