@@ -23,17 +23,17 @@
         <RepositoryUrl>https://github.com/8LWXpg/CmdPal-SSH</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>
-        <None Remove="Assets\LargeTile.scale-400.png"/>
-        <None Remove="Assets\SmallTile.scale-400.png"/>
-        <None Remove="Assets\SplashScreen.scale-400.png"/>
-        <None Remove="Assets\Square150x150Logo.scale-400.png"/>
-        <None Remove="Assets\Square44x44Logo.scale-400.png"/>
-        <None Remove="Assets\StoreLogo.scale-400.png"/>
-        <None Remove="Assets\Wide310x150Logo.scale-400.png"/>
+        <None Remove="Assets\LargeTile.scale-400.png" />
+        <None Remove="Assets\SmallTile.scale-400.png" />
+        <None Remove="Assets\SplashScreen.scale-400.png" />
+        <None Remove="Assets\Square150x150Logo.scale-400.png" />
+        <None Remove="Assets\Square44x44Logo.scale-400.png" />
+        <None Remove="Assets\StoreLogo.scale-400.png" />
+        <None Remove="Assets\Wide310x150Logo.scale-400.png" />
     </ItemGroup>
 
     <ItemGroup>
-        <Manifest Include="$(ApplicationManifest)"/>
+        <Manifest Include="$(ApplicationManifest)" />
     </ItemGroup>
     <ItemGroup>
         <None Include="..\README.md">
@@ -48,12 +48,13 @@
       package has not yet been restored.
     -->
     <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-        <ProjectCapability Include="Msix"/>
+        <ProjectCapability Include="Msix" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Glob"/>
-        <PackageReference Include="Microsoft.CommandPalette.Extensions"/>
-        <PackageReference Include="Shmuelie.WinRTServer"/>
+        <PackageReference Include="Glob" />
+        <PackageReference Include="Microsoft.CommandPalette.Extensions" />
+        <PackageReference Include="Microsoft.WindowsAppSDK" />
+        <PackageReference Include="Shmuelie.WinRTServer" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Update="Properties\Resources.resx">
