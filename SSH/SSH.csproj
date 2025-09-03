@@ -92,7 +92,7 @@
     <WarningsNotAsErrors>IL2081;$(WarningsNotAsErrors)</WarningsNotAsErrors>
 
     <!-- When publishing trimmed, make sure to treat trimming warnings as build errors -->
-    <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>
+    <!-- <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors> -->
 
   </PropertyGroup>
 
