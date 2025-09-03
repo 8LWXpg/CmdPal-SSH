@@ -24,7 +24,7 @@ if (-not $skipBuild) {
     dotnet build -c Release -p:GenerateAppxPackageOnBuild=true -p:Platform=arm64
     Remove-Item ./out/* -ea Ignore
     mkdir ./out -ea ig
-    (Get-ChildItem -r *.msix -Exclude Microsoft.WindowsAppRuntime.*.msix).FullName | ForEach-Object { Copy-Item $_ ./out/. -Force }
+    (Get-ChildItem -r ./bin/**/*.msix -Exclude Microsoft.WindowsAppRuntime.*.msix).FullName | ForEach-Object { Copy-Item $_ ./out/. -Force }
 }
 
 git add ..
