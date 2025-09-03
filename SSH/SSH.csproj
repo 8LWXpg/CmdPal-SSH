@@ -90,6 +90,9 @@
     <CsWinRTAotWarningLevel>2</CsWinRTAotWarningLevel>
     <!-- Suppress DynamicallyAccessedMemberTypes.PublicParameterlessConstructor in fallback code path of Windows SDK projection -->
     <WarningsNotAsErrors>IL2081;$(WarningsNotAsErrors)</WarningsNotAsErrors>
+    <PackageCertificateThumbprint>E1C1B95B0BC00EF611A3CE6DAAE1F9819881F80F</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>SSH_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
 
     <!-- When publishing trimmed, make sure to treat trimming warnings as build errors -->
     <!-- <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors> -->
