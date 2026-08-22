@@ -5,64 +5,34 @@
         <ApplicationManifest>app.manifest</ApplicationManifest>
 
         <WindowsSdkPackageVersion>10.0.26100.38</WindowsSdkPackageVersion>
-        <TargetFramework>net9.0-windows10.0.26100.0</TargetFramework>
+        <TargetFramework>net10.0-windows10.0.26100.0</TargetFramework>
         <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
         <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
         <RuntimeIdentifiers>win-x64;win-arm64</RuntimeIdentifiers>
+        <GenerateAppxPackageOnBuild>true</GenerateAppxPackageOnBuild>
+        <PublishReadyToRun>true</PublishReadyToRun>
 
         <PublishProfile>win-$(Platform).pubxml</PublishProfile>
         <EnableMsixTooling>true</EnableMsixTooling>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <Version>0.0.2</Version>
-
-        <Authors>8LWXpg</Authors>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
-        <NeutralLanguage>en</NeutralLanguage>
-        <PackageProjectUrl>https://github.com/8LWXpg/CmdPal-SSH</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/8LWXpg/CmdPal-SSH</RepositoryUrl>
     </PropertyGroup>
+
     <ItemGroup>
-        <None Remove="Assets\LargeTile.scale-400.png" />
-        <None Remove="Assets\SmallTile.scale-400.png" />
-        <None Remove="Assets\SplashScreen.scale-400.png" />
-        <None Remove="Assets\Square150x150Logo.scale-400.png" />
-        <None Remove="Assets\Square44x44Logo.scale-400.png" />
-        <None Remove="Assets\StoreLogo.scale-400.png" />
-        <None Remove="Assets\Wide310x150Logo.scale-400.png" />
+        <Content Include="Assets\**\*.png" />
+        <Content Include="Assets\**\*.svg" />
     </ItemGroup>
 
     <ItemGroup>
         <Manifest Include="$(ApplicationManifest)" />
     </ItemGroup>
-    <ItemGroup>
-        <None Include="..\README.md">
-            <Pack>True</Pack>
-            <PackagePath>\</PackagePath>
-        </None>
-    </ItemGroup>
 
-    <!--
-      Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
-      Tools extension to be activated for this project even if the Windows App SDK Nuget
-      package has not yet been restored.
-    -->
-    <ItemGroup Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
-        <ProjectCapability Include="Msix" />
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="Glob" />
-        <PackageReference Include="Microsoft.CommandPalette.Extensions" />
-        <PackageReference Include="Microsoft.WindowsAppSDK" />
-        <PackageReference Include="Shmuelie.WinRTServer" />
-    </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Update="Properties\Resources.resx">
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>Resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
-    </ItemGroup>
-    <ItemGroup>
         <Compile Update="Properties\Resources.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
@@ -71,11 +41,33 @@
     </ItemGroup>
 
     <!--
+      Defining the "Msix" ProjectCapability here allows the Single-project MSIX Packaging
+      Tools extension to be activated for this project even if the Windows App SDK Nuget
+      package has not yet been restored.
+    -->
+    <ItemGroup
+        Condition="'$(DisableMsixProjectCapabilityAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+        <ProjectCapability Include="Msix" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CommandPalette.Extensions" />
+        <PackageReference Include="Shmuelie.WinRTServer" />
+        <PackageReference Include="Glob" />
+
+        <!-- Needed to enable building an MSIX package -->
+        <PackageReference Include="Microsoft.Windows.SDK.BuildTools.MSIX">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <!--
       Defining the "HasPackageAndPublishMenuAddedByProject" property here allows the Solution
       Explorer "Package and Publish" context menu entry to be enabled for this project even if
       the Windows App SDK Nuget package has not yet been restored.
     -->
-    <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
+    <PropertyGroup
+        Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
         <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
     </PropertyGroup>
 
@@ -85,14 +77,13 @@
 
         <CsWinRTAotOptimizerEnabled>true</CsWinRTAotOptimizerEnabled>
         <CsWinRTAotWarningLevel>2</CsWinRTAotWarningLevel>
-        <!-- Suppress DynamicallyAccessedMemberTypes.PublicParameterlessConstructor in fallback code path of Windows SDK projection -->
+        <!-- Suppress DynamicallyAccessedMemberTypes.PublicParameterlessConstructor in fallback code
+        path of Windows SDK projection -->
         <WarningsNotAsErrors>IL2081;$(WarningsNotAsErrors)</WarningsNotAsErrors>
-        <PackageCertificateThumbprint>E1C1B95B0BC00EF611A3CE6DAAE1F9819881F80F</PackageCertificateThumbprint>
-        <PackageCertificateKeyFile>SSH_TemporaryKey.pfx</PackageCertificateKeyFile>
-        <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
 
         <!-- When publishing trimmed, make sure to treat trimming warnings as build errors -->
-        <!-- <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors> -->
+        <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>
+        <DefaultLanguage>en</DefaultLanguage>
 
     </PropertyGroup>
 
@@ -111,7 +102,9 @@
         <!-- In Release builds, trimming is enabled by default. 
              feel free to disable this if needed -->
         <PublishTrimmed>true</PublishTrimmed>
-    </PropertyGroup>
 
+        <!-- In release, also ignore the aforementioned ILLink warning -->
+        <ILLinkTreatWarningsAsErrors>false</ILLinkTreatWarningsAsErrors>
+    </PropertyGroup>
 
 </Project>

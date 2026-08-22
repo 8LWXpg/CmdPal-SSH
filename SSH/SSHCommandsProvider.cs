@@ -13,7 +13,7 @@ public sealed partial class SshCommandsProvider : CommandProvider
 	public SshCommandsProvider()
 	{
 		DisplayName = "SSH";
-		Icon = IconHelpers.FromRelativePaths("Assets/SSH.light.svg", "Assets/SSH.dark.svg");
+		Icon = IconHelpers.FromRelativePath("Assets/Square44x44Logo.png");
 		Settings = _settingsManager.Settings;
 		_commands =
 		[

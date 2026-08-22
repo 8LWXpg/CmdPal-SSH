@@ -9,25 +9,27 @@
   IgnorableNamespaces="uap uap3 rescap">
 
   <Identity
-    Name="SSH"
-    Publisher="CN=8LWXpg"
-    Version="0.0.2.0" />
+    Name="8LWXpg.SSHforCommandPalette"
+    Publisher="CN=C82F3BA1-ED28-4A30-8FC1-503B94576C1B"
+    Version="1.0.0.0" />
   <!-- When you're ready to publish your extension, you'll need to change the
        Publisher= to match your own identity -->
 
   <Properties>
-    <DisplayName>SSH</DisplayName>
+    <DisplayName>SSH for Command Palette</DisplayName>
     <PublisherDisplayName>8LWXpg</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.19041.0" MaxVersionTested="10.0.19041.0" />
-    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.19041.0"
+      MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0"
+      MaxVersionTested="10.0.19041.0" />
   </Dependencies>
 
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
 
   <Applications>
@@ -40,17 +42,16 @@
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"  Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
-          <uap:ShowNameOnTiles>
-            <uap:ShowOn Tile="square310x310Logo"/>
-          </uap:ShowNameOnTiles>
-        </uap:DefaultTile >
-        <uap:SplashScreen Image="Assets\SplashScreen.png"/>
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png"
+          Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png">
+        </uap:DefaultTile>
+        <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <com:Extension Category="windows.comServer">
           <com:ComServer>
-            <com:ExeServer Executable="SSH.exe" Arguments="-RegisterProcessAsComServer" DisplayName="SSH">
+            <com:ExeServer Executable="SSH.exe" Arguments="-RegisterProcessAsComServer"
+              DisplayName="SSH">
               <com:Class Id="1d07b190-9870-49a9-8f1d-cf52476e262d" DisplayName="SSH" />
             </com:ExeServer>
           </com:ComServer>
@@ -67,7 +68,7 @@
                   <CreateInstance ClassId="1d07b190-9870-49a9-8f1d-cf52476e262d" />
                 </Activation>
                 <SupportedInterfaces>
-                  <Commands/>
+                  <Commands />
                 </SupportedInterfaces>
               </CmdPalProvider>
             </uap3:Properties>

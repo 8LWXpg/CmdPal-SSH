@@ -9,10 +9,12 @@ namespace SSH.Pages;
 internal sealed partial class SshPage : ListPage
 {
 	private readonly SettingsManager _settingsManager;
+	private readonly IconInfo _itemIcon;
 
 	public SshPage(SettingsManager settingsManager)
 	{
-		Icon = IconHelpers.FromRelativePaths("Assets/SSH.light.svg", "Assets/SSH.dark.svg");
+		Icon = IconHelpers.FromRelativePath("Assets/Square44x44Logo.png");
+		_itemIcon = IconHelpers.FromRelativePaths("Assets/SSH.light.svg", "Assets/SSH.dark.svg");
 		Title = Resources.plugin_name;
 		Name = Resources.plugin_description;
 		_settingsManager = settingsManager;
@@ -28,7 +30,7 @@ internal sealed partial class SshPage : ListPage
 				_settingsManager.TerminalType,
 				_settingsManager.SuppressTitleChange)
 		)
-		{ Title = host.Host, Subtitle = $"{host.User}@{host.HostName}", Icon = Icon });
+		{ Title = host.Host, Subtitle = $"{host.User}@{host.HostName}", Icon = _itemIcon });
 
 		return [.. results];
 	}
