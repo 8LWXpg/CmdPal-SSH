@@ -3,49 +3,45 @@ param(
 	[switch]$skipBump,
 	[switch]$skipSign
 )
-
 $ErrorActionPreference = 'Stop'
-
 Push-Location $PSScriptRoot
 
-if (-not $skipBump){
+if (-not $skipBump) {
 	$version = Read-Host -Prompt 'New tag'
+	(Get-Content ./Package.appxmanifest -Raw) `
+		-replace '(Identity[^>]+?)Version="[\d\.]+"', "`$1Version=`"$version.0`"" |
+		Out-File ./Package.appxmanifest -NoNewline
 
-	(Get-Content ./Package.appxmanifest -Raw) -replace `
-		'(Identity[^>]+?)Version="[\d\.]+"', `
-		"`$1Version=`"$version.0`"" `
-	| Out-File ./Package.appxmanifest -NoNewline
+	git add ..
+	git commit -m 'bump'
+	git tag "v$version"
 }
 
 if (-not $skipBuild) {
-	Remove-Item ./AppPackages/* -r -fo -ea ig
-	dotnet build --configuration Release -p:Platform=x64 -p:AppxPackageDir="AppPackages\x64\"
-	dotnet build --configuration Release -p:Platform=arm64 -p:AppxPackageDir="AppPackages\ARM64\"
-	mkdir out -ea ig
-	Remove-Item ./out/* -r -fo -ea ig
-	$msix = Get-ChildItem ./AppPackages/ -Recurse -Filter *.msix
-	Copy-Item $msix ./out/. -Force
+	Remove-Item ./AppPackages, ./out -Recurse -Force -ErrorAction Ignore
+	New-Item ./out -ItemType Directory | Out-Null
+
+	foreach ($platform in 'x64', 'ARM64') {
+		dotnet build --configuration Release -p:Platform=$platform -p:AppxPackageDir="AppPackages\$platform\"
+	}
+
+	$msix = Get-ChildItem ./AppPackages -Recurse -Filter *.msix
+	Copy-Item $msix ./out -Force
+
+	$parts = $msix[0].Name -split '_'
+	$bundle = "$($parts[0])_$($parts[1]).msixbundle"
 
 	Push-Location
 	Import-Module 'C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools\Microsoft.VisualStudio.DevShell.dll'
-	Enter-VsDevShell e87fa5ce
+	Enter-VsDevShell e87fa5ce | Out-Null
 	Pop-Location
-	$filename = $msix[0].Name
-	$firstIndex = $filename.IndexOf('_')
-	$secondIndex = $filename.IndexOf('_', $firstIndex + 1)
-	$bundle = "$($filename.Substring(0, $secondIndex)).msixbundle"
-	makeappx bundle /v /d ./out/ /p $bundle
+
+	makeappx bundle /d ./out/ /p $bundle
 	Move-Item $bundle ./out
 }
 
 if (-not $skipSign) {
 	winapp sign ./out/$bundle E:/cert/cert.pfx
-}
-
-if (-not $skipBump){
-	git add ..
-	git commit -m 'bump'
-	git tag "v$version"
 }
 
 Pop-Location
