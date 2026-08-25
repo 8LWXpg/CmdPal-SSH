@@ -1,14 +1,22 @@
 # SSH for CmdPal
 
-> [!IMPORTANT]
-> This project is still in early development
-
 Command Pallet extension for connecting to SSH clients that configured at `~/.ssh/config` file.
 
-## Installation
+## Usage
 
-Download `.msix` in release page, and run the following command in PowerShell:
+### Open SSH Connection in Terminal
 
-```pwsh
-Add-AppxPackage <msix> -AllowUnsigned
-```
+![open a ssh connection](./assets/results.png)
+
+## Install Dev Version
+
+**Prerequisite**
+
+- [winapp cli](https://github.com/microsoft/winappCli): `winget install Microsoft.WinAppCli`
+
+**Steps**
+
+1. Download both `SSH_<version>.msixbundle` and `cert.pfx`
+2. `sudo winapp cert install cert.pfx` (only need to do this once)
+3. Click to install or `Add-AppxPackage <msix>`
+
