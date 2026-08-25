@@ -17,15 +17,11 @@
 ### Step 1: Install PowerToys
 1. Open Microsoft Store
 2. Search for "PowerToys" or use the direct link above
-3. Click "Get" or "Install"
-4. Wait for installation to complete
+3. Install
 
 ### Step 2: Install Extension
-1. Download the MSIX package
-2. Right-click the MSIX file
-3. Select "Install" from the context menu
-4. Follow the installation prompts
-5. The extension will automatically register with Command Palette
+1. Download and install the MSIX package
+2. The extension will automatically register with Command Palette
 
 ### Step 3: Activate Command Palette
 1. Open PowerToys
@@ -37,9 +33,7 @@
 
 ### Setup: SSH Config
 The extension reads host entries from `%USERPROFILE%\.ssh\config`. If this
-file doesn't already exist, create it with a minimal entry (no real
-credentials needed — the entry just needs to exist for the list to
-populate):
+file doesn't already exist, create it with a minimal entry
 
 ```
 Host local
@@ -55,16 +49,14 @@ Host local
 5. Confirm the list shows the host(s) from `~/.ssh/config` (e.g. `local`),
    with subtitle `user@127.0.0.1` and a details pane showing that host's
    config properties
-6. Select the host and invoke **Open in Terminal**
+6. Press enter to **Open in Terminal**
 
 ### Expected Behavior
 
-A terminal window (Windows Terminal by default) opens and runs `ssh local`
-(or the selected host). The SSH connection itself does not need to succeed —
-since `127.0.0.1` typically has no SSH server listening, the command
-failing/timing out inside the terminal is expected and fine. What's being
-validated is that the extension launches the terminal with the correct
-command, not that the connection completes.
+A default terminal window opens and runs ssh local. The SSH connection is
+expected to fail or time out since 127.0.0.1 usually has no active SSH server.
+This test only validates that the extension successfully launches the terminal
+with the correct command.
 
 ## Troubleshooting
 
