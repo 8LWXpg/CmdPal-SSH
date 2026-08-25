@@ -32,7 +32,9 @@ public class Parser
 				// };
 			}
 			else
+			{
 				_ = current!.Properties.TryAdd(node.Key, node.Value);
+			}
 		}
 
 		AddNode(current, Nodes, globNodes);
@@ -42,10 +44,15 @@ public class Parser
 			foreach (ConfigNode node in Nodes)
 			{
 				var glob = new Glob(globNode.Host);
-				if (!glob.IsMatch(node.Host)) continue;
+				if (!glob.IsMatch(node.Host))
+				{
+					continue;
+				}
 
 				foreach (KeyValuePair<string, string> property in globNode.Properties)
+				{
 					_ = node.Properties.TryAdd(property.Key, property.Value);
+				}
 			}
 		}
 	}
@@ -55,12 +62,19 @@ public class Parser
 
 	private static void AddNode(ConfigNode? node, List<ConfigNode> nodes, List<ConfigNode> globNodes)
 	{
-		if (node == null) return;
+		if (node == null)
+		{
+			return;
+		}
 
 		if (HasGlobPattern(node.Host))
+		{
 			globNodes.Add(node);
+		}
 		else
+		{
 			nodes.Add(node);
+		}
 	}
 
 	private static bool HasGlobPattern(string pattern) => pattern.Any(c => GlobCharacters.Contains(c));

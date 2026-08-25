@@ -14,9 +14,10 @@ internal sealed partial class SshPage : ListPage
 	public SshPage(SettingsManager settingsManager)
 	{
 		Icon = IconHelpers.FromRelativePath("Assets/Square44x44Logo.png");
-		_itemIcon = IconHelpers.FromRelativePaths("Assets/SSH.light.svg", "Assets/SSH.dark.svg");
 		Title = Resources.plugin_name;
 		Name = Resources.plugin_description;
+		ShowDetails = true;
+		_itemIcon = IconHelpers.FromRelativePaths("Assets/SSH.light.svg", "Assets/SSH.dark.svg");
 		_settingsManager = settingsManager;
 	}
 
@@ -30,7 +31,17 @@ internal sealed partial class SshPage : ListPage
 				_settingsManager.TerminalType,
 				_settingsManager.SuppressTitleChange)
 		)
-		{ Title = host.Host, Subtitle = $"{host.User}@{host.HostName}", Icon = _itemIcon });
+		{
+			Title = host.Host,
+			Subtitle = $"{host.User}@{host.HostName}",
+			Icon = _itemIcon,
+			Details = new Details()
+			{
+				Title = host.Host,
+				Metadata = [.. host.Properties.Select((p) =>
+					new DetailsElement() { Key = p.Key, Data = new DetailsLink(string.Empty, p.Value) })]
+			}
+		});
 
 		return [.. results];
 	}

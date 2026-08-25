@@ -1,6 +1,6 @@
-using Microsoft.CommandPalette.Extensions.Toolkit;
 using System.ComponentModel;
 using System.Diagnostics;
+using Microsoft.CommandPalette.Extensions.Toolkit;
 
 namespace SSH.Commands;
 
@@ -24,7 +24,7 @@ public static class Helper
 
 		try
 		{
-			process.Start();
+			_ = process.Start();
 			return true;
 		}
 		catch (Win32Exception)

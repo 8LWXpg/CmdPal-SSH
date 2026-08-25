@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using SSH.Classes.Config;
 
 namespace SSH.Classes;
@@ -6,12 +7,6 @@ public static class SshProfile
 {
 	public static readonly string configPath =
 		Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".ssh", "config");
-
-	/// <summary>
-	///     Cached hosts that only updates when config changes
-	/// </summary>
-	private static List<SshHost>? _cachedHosts;
-
 	private static readonly Lock _lock = new();
 	private static readonly FileSystemWatcher[] _fileWatchers;
 
@@ -21,7 +16,7 @@ public static class SshProfile
 	static SshProfile()
 	{
 		var config = new Parser(configPath);
-		_cachedHosts = config.Nodes.ConvertAll(node => new SshHost(node));
+		Hosts = config.Nodes.ConvertAll(node => new SshHost(node));
 		HashSet<string> includes = config.Includes;
 		_fileWatchers =
 		[
@@ -38,7 +33,7 @@ public static class SshProfile
 				{
 					lock (_lock)
 					{
-						_cachedHosts = null;
+						Hosts = null;
 					}
 				};
 				fileWatcher.EnableRaisingEvents = true;
@@ -48,15 +43,18 @@ public static class SshProfile
 		];
 	}
 
+	[AllowNull]
 	public static List<SshHost> Hosts
 	{
 		get
 		{
 			lock (_lock)
 			{
-				_cachedHosts ??= new Parser(configPath).Nodes.ConvertAll(node => new SshHost(node));
-				return _cachedHosts;
+				field ??= new Parser(configPath).Nodes.ConvertAll(node => new SshHost(node));
+				return field;
 			}
 		}
+
+		private set;
 	}
 }

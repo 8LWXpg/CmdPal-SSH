@@ -1,5 +1,5 @@
-using GlobExpressions;
 using System.Text.RegularExpressions;
+using GlobExpressions;
 
 namespace SSH.Classes.Config;
 

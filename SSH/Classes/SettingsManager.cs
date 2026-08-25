@@ -1,7 +1,7 @@
+using System.Globalization;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using SSH.Properties;
 using SSH.Terminal;
-using System.Globalization;
 
 namespace SSH.Classes;
 

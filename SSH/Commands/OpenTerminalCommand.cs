@@ -16,7 +16,7 @@ internal sealed partial class OpenTerminalCommand(
 
 	public override ICommandResult Invoke()
 	{
-		TerminalHelper.OpenTerminal(host, title, mode, type, suppressTitleChange);
+		_ = TerminalHelper.OpenTerminal(host, title, mode, type, suppressTitleChange);
 		return CommandResult.GoHome();
 	}
 }
