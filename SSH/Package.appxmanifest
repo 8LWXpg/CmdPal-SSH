@@ -29,6 +29,13 @@
   </Dependencies>
 
   <Resources>
+    <Resource Language="en" />
+    <Resource Language="ru-RU" />
+    <Resource Language="uk-UA" />
+  </Resources>
+
+
+  <Resources>
     <Resource Language="x-generate" />
   </Resources>
 
