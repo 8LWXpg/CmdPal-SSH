@@ -4,7 +4,7 @@ param(
 	[switch]$skipSign
 )
 $ErrorActionPreference = 'Stop'
-Push-Location $PSScriptRoot
+Push-Location $PSScriptRoot/../SSH
 
 if (-not $skipBump) {
 	$version = Read-Host -Prompt 'New tag'
