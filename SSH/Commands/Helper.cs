@@ -24,6 +24,9 @@ public static class Helper
 
 		try
 		{
+			// Pass our foreground rights on to the launched process so the new
+			// terminal window can receive keyboard focus. Best effort: ignore failure.
+			_ = NativeMethods.AllowSetForegroundWindow(NativeMethods.ASFW_ANY);
 			_ = process.Start();
 			return true;
 		}

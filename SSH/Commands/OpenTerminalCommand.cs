@@ -16,7 +16,20 @@ internal sealed partial class OpenTerminalCommand(
 
 	public override ICommandResult Invoke()
 	{
-		_ = TerminalHelper.OpenTerminal(host, title, mode, type, suppressTitleChange);
-		return CommandResult.GoHome();
+		// Pass on the foreground rights Command Palette just granted us (via
+		// CoAllowSetForegroundWindow) immediately, while they are still valid, so the
+		// terminal we launch can take foreground/keyboard focus.
+		_ = NativeMethods.AllowSetForegroundWindow(NativeMethods.ASFW_ANY);
+
+		// Windows Terminal doesn't activate its own window, so remember which WT windows
+		// already exist, launch, then find the (new) terminal window and focus it ourselves.
+		var existingWtWindows = type == TerminalType.WindowsTerminal ? TerminalFocus.Snapshot() : null;
+		var launched = TerminalHelper.OpenTerminal(host, title, mode, type, suppressTitleChange);
+		if (launched && existingWtWindows is not null)
+		{
+			TerminalFocus.FocusInBackground(existingWtWindows);
+		}
+
+		return CommandResult.Dismiss();
 	}
 }
