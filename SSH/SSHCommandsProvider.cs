@@ -1,6 +1,7 @@
 using Microsoft.CommandPalette.Extensions;
 using Microsoft.CommandPalette.Extensions.Toolkit;
 using SSH.Classes;
+using SSH.Commands;
 using SSH.Pages;
 
 namespace SSH;
@@ -8,6 +9,7 @@ namespace SSH;
 public sealed partial class SshCommandsProvider : CommandProvider
 {
 	private readonly ICommandItem[] _commands;
+	private readonly IFallbackCommandItem[] _fallbackCommands;
 	private readonly SettingsManager _settingsManager = new();
 
 	public SshCommandsProvider()
@@ -19,7 +21,13 @@ public sealed partial class SshCommandsProvider : CommandProvider
 		[
 			new CommandItem(new SshPage(_settingsManager)) { Title = DisplayName }
 		];
+		_fallbackCommands =
+		[
+			new SshFallbackCommandItem(_settingsManager)
+		];
 	}
 
 	public override ICommandItem[] TopLevelCommands() => _commands;
+
+	public override IFallbackCommandItem[] FallbackCommands() => _fallbackCommands;
 }
