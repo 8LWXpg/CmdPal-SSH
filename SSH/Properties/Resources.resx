@@ -158,4 +158,7 @@
     <data name="open_in_terminal" xml:space="preserve">
     <value>Open in terminal</value>
   </data>
+  <data name="connect_to_host" xml:space="preserve">
+    <value>Connect to {0}</value>
+  </data>
 </root>

@@ -150,4 +150,7 @@
   <data name="suppress_title_change_desc" xml:space="preserve">
     <value>Используйте, только если не хотите включать глобальные настройки</value>
   </data>
+  <data name="connect_to_host" xml:space="preserve">
+    <value>Подключение к {0}</value>
+  </data>
 </root>
